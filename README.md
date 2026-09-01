@@ -3,26 +3,49 @@
 > 노션에 글을 쓰면 자동으로 발행되는 개인 브랜딩 사이트.
 > **Next.js 16 + Notion API + Netlify** · 비개발자용 · 빌드 검증 완료
 
-[![Netlify로 배포하기](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/leejiwon0130/notion-blog-starter)
+> ## ⚠️ 배포는 **맨 마지막에 한 번만** 하세요
+>
+> Netlify는 **빌드할 때마다 무료 시간이 깎입니다.**
+> 저장소를 Netlify에 연결해두면 **GitHub에 올릴 때마다 자동으로 빌드**됩니다.
+>
+> **작업은 전부 내 컴퓨터에서 하세요. 로컬은 무제한 공짜입니다.**
+>
+> ```
+> ❌ 만들면서 계속 배포 → 빌드 시간 소진
+> ✅ 로컬에서 완성 → 마지막에 한 번 배포
+> ```
+>
+> 그래서 이 README에는 "원클릭 배포 버튼"을 넣지 않았습니다. (누르는 순간 배포됩니다)
 
-## 빠른 시작
+## 작업 순서
 
 ```bash
+# 1. 내 컴퓨터로 받기
 git clone https://github.com/leejiwon0130/notion-blog-starter.git my-site
 cd my-site
 npm install
-cp .env.example .env.local     # 노션 키 입력
-npm run dev
+
+# 2. 노션 키 넣기
+cp .env.example .env.local        # 파일 열어서 값 입력
+
+# 3. 로컬에서 확인 (여기서 다 만듭니다 · 공짜 · 무제한)
+npm run dev                       # http://localhost:3000
 ```
+
+**3번에서 디자인·글·정보를 전부 완성하세요.** 저장하면 화면에 바로 반영됩니다.
+
+**완성된 뒤에만** README 아래 「7. Netlify 배포」로 가세요.
 
 **Claude Code를 쓴다면 이렇게 말하세요**
 
 ```
 https://github.com/leejiwon0130/notion-blog-starter 를 클론해서
 lib/site.js 를 내 정보로 채워줘. README를 먼저 읽고 진행해줘.
+배포는 하지 말고 로컬에서만 확인해줘.
 ```
 
 ---
+
 
 # 수강생용 — 노션 연동 브랜딩 사이트 구축 지시서
 
@@ -191,7 +214,11 @@ NOTION_DATABASE_ID=1a2b3c...
 
 ---
 
-## 7. Netlify 배포
+## 7. Netlify 배포 — **완성한 뒤에 한 번만**
+
+> ⚠️ **여기까지 오기 전에 로컬에서 사이트를 완성하세요.**
+> 한 번 연결하면 GitHub에 올릴 때마다 자동으로 빌드되어 무료 시간이 깎입니다.
+
 
 1. 코드를 **GitHub에 올린다** (비공개 저장소도 가능)
 2. Netlify → **Add new site** → **Import an existing project** → GitHub 저장소 선택
@@ -205,6 +232,23 @@ NOTION_DATABASE_ID=1a2b3c...
 기본은 1시간마다 자동 갱신(ISR)입니다. 바로 반영하려면
 **Site configuration → Build & deploy → Build hooks** 에서 훅을 만들고,
 그 주소를 즐겨찾기 해두었다가 글 쓴 뒤 한 번 열면 즉시 재배포됩니다.
+
+---
+
+### 배포 후 — 빌드 시간 아끼는 법
+
+| 상황 | 하지 말 것 | 대신 |
+|---|---|---|
+| 디자인 수정 | 고칠 때마다 push | **로컬에서 다 고치고** 모아서 한 번 push |
+| 오타 하나 | 바로 push | 다른 수정과 **묶어서** push |
+| 노션 글 추가 | 재배포 | **아무것도 안 해도 1시간 뒤 자동 반영** (ISR) |
+| 글을 지금 당장 반영 | 매번 재배포 | 급할 때만 Build hook 1회 |
+
+**노션 글은 재배포가 필요 없습니다.** 이 템플릿은 1시간마다 알아서 새 글을 가져옵니다.
+빌드가 필요한 건 **코드나 디자인을 바꿨을 때뿐**입니다.
+
+무료 플랜은 월 300분입니다. 이 사이트 한 번 빌드에 1~2분이니
+**모아서 올리면 충분히 여유롭습니다.**
 
 ---
 
