@@ -1,0 +1,79 @@
+:root{
+  --ink:#141924; --dim:#6b7280; --line:#e9e6df;
+  --brand:#43a49d; --deep:#1a3a35; --paper:#f7f4ee;
+  --max:840px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:#fff; color:var(--ink);
+  font-family:'Pretendard Variable',Pretendard,-apple-system,'Noto Sans KR',sans-serif;
+  /* 한글은 기본값이면 단어 중간에서 줄이 바뀝니다. 반드시 필요 */
+  word-break:keep-all; overflow-wrap:break-word;
+  line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+
+.site-header{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  max-width:var(--max);margin:0 auto;padding:20px;
+}
+.site-header .logo{font-weight:800;font-size:19px;color:var(--deep)}
+.site-header nav{display:flex;align-items:center;gap:18px;font-size:15px}
+.cta-sm{background:var(--brand);color:#fff !important;padding:9px 16px;border-radius:999px;font-weight:700}
+
+main{max-width:var(--max);margin:0 auto;padding:0 20px 80px}
+
+.hero{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+.eyebrow{margin:0 0 10px;font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--brand)}
+h1{font-size:clamp(30px,5.5vw,46px);line-height:1.25;letter-spacing:-.02em;margin:0 0 14px;color:var(--deep)}
+h2{font-size:clamp(22px,3.4vw,28px);margin:0 0 18px;color:var(--deep)}
+h3{font-size:19px;margin:0 0 8px;color:var(--deep)}
+.lead{font-size:18px;color:var(--dim);margin:0 0 26px}
+.dim{color:var(--dim)}
+
+.cta{display:inline-block;background:var(--deep);color:#fff;padding:15px 28px;border-radius:999px;font-weight:700}
+.cta:hover{background:var(--brand)}
+
+.block{padding:52px 0}
+.block-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.block-head a{color:var(--brand);font-weight:600;font-size:15px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -28px rgba(20,25,36,.5)}
+.card p{margin:0;color:var(--dim);font-size:15.5px}
+.post-card img{border-radius:10px;margin-bottom:14px;aspect-ratio:16/9;object-fit:cover}
+.post-card time{display:block;margin-top:12px;font-size:13.5px;color:var(--dim)}
+.tag{display:inline-block;background:rgba(67,164,157,.14);color:#2f6f69;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;margin-bottom:10px}
+
+.post{padding:44px 0}
+.post-head{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:30px}
+.post-head time{color:var(--dim);font-size:14.5px}
+.post-cover{border-radius:14px;margin:0 0 30px}
+.post-body{font-size:17.5px}
+.post-body h2{margin:44px 0 14px}
+.post-body h3{margin:32px 0 10px}
+.post-body p{margin:0 0 20px}
+.post-body ul,.post-body ol{margin:0 0 20px;padding-left:22px}
+.post-body li{margin-bottom:8px}
+.post-body img{border-radius:12px;margin:24px 0}
+.post-body blockquote{margin:24px 0;padding:16px 22px;background:var(--paper);border-left:3px solid var(--brand);border-radius:0 10px 10px 0}
+.post-body code{background:var(--paper);padding:2px 6px;border-radius:5px;font-size:.92em}
+.post-body pre{background:var(--deep);color:#e8eae7;padding:20px;border-radius:12px;overflow-x:auto}
+.post-body pre code{background:none;color:inherit}
+.post-body table{width:100%;border-collapse:collapse;margin:24px 0}
+.post-body th,.post-body td{border:1px solid var(--line);padding:11px 13px;text-align:left}
+.post-body a{color:var(--brand);text-decoration:underline;text-underline-offset:3px}
+
+.post-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:52px;padding-top:30px;border-top:1px solid var(--line)}
+.back{color:var(--dim)}
+
+.site-footer{border-top:1px solid var(--line);padding:34px 20px;text-align:center;font-size:14.5px}
+.site-footer p{margin:0 0 6px}
+
+@media (max-width:640px){
+  .site-header{flex-direction:column;align-items:flex-start;gap:12px}
+  .block{padding:40px 0}
+}

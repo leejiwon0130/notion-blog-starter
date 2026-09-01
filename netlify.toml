@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Next.js를 넷리파이에서 그대로 돌려주는 공식 플러그인
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
