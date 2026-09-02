@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "setup:notion": "node scripts/setup-notion.mjs"
   },
   "dependencies": {
     "@notionhq/client": "2.2.15",
