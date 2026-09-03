@@ -1,7 +1,7 @@
 # 노션 연동 브랜딩 사이트 스타터
 
 > 노션에 글을 쓰면 자동으로 발행되는 개인 브랜딩 사이트.
-> **Next.js 16 + Notion API + Netlify** · 비개발자용 · 빌드 검증 완료
+> **Next.js 16 + Notion API + Vercel** · 비개발자용 · 빌드 검증 완료
 
 > ### 📌 이미 홈페이지를 만들고 있다면 (대부분 이 경우입니다)
 >
@@ -21,8 +21,8 @@
 
 > ## ⚠️ 배포는 **맨 마지막에 한 번만** 하세요
 >
-> Netlify는 **빌드할 때마다 무료 시간이 깎입니다.**
-> 저장소를 Netlify에 연결해두면 **GitHub에 올릴 때마다 자동으로 빌드**됩니다.
+> 저장소를 Vercel에 연결해두면 **GitHub에 올릴 때마다 자동으로 빌드**됩니다.
+> 무료 플랜에도 한도가 있으니 만드는 동안은 배포하지 마세요.
 >
 > **작업은 전부 내 컴퓨터에서 하세요. 로컬은 무제한 공짜입니다.**
 >
@@ -50,7 +50,7 @@ npm run dev                       # http://localhost:3000
 
 **3번에서 디자인·글·정보를 전부 완성하세요.** 저장하면 화면에 바로 반영됩니다.
 
-**완성된 뒤에만** README 아래 「7. Netlify 배포」로 가세요.
+**완성된 뒤에만** README 아래 「7. Vercel 배포」로 가세요.
 
 **Claude Code를 쓴다면 이렇게 말하세요**
 
@@ -66,7 +66,7 @@ lib/site.js 를 내 정보로 채워줘. README를 먼저 읽고 진행해줘.
 # 수강생용 — 노션 연동 브랜딩 사이트 구축 지시서
 
 > **이 파일을 Claude Code에 그대로 전달하세요.**
-> 목적: 노션에 글을 쓰면 자동 발행되는 개인 브랜딩 사이트를 Netlify에 배포.
+> 목적: 노션에 글을 쓰면 자동 발행되는 개인 브랜딩 사이트를 Vercel에 배포.
 > 대상: 창원·경남 지역 마케팅 강사/소상공인 (비개발자)
 
 ---
@@ -94,7 +94,7 @@ lib/site.js 를 내 정보로 채워줘. README를 먼저 읽고 진행해줘.
 ## 1. 기술 스택 (확정)
 
 ```
-Next.js 16 (App Router)  +  Notion API  +  Netlify
+Next.js 16 (App Router)  +  Notion API  +  Vercel
 ```
 
 > ✅ **이 템플릿은 실제로 빌드 검증을 마쳤습니다.**
@@ -233,41 +233,64 @@ NOTION_DATABASE_ID=1a2b3c...
 
 ---
 
-## 7. Netlify 배포 — **완성한 뒤에 한 번만**
+## 7. Vercel 배포 — **완성한 뒤에 한 번만**
 
 > ⚠️ **여기까지 오기 전에 로컬에서 사이트를 완성하세요.**
-> 한 번 연결하면 GitHub에 올릴 때마다 자동으로 빌드되어 무료 시간이 깎입니다.
 
+### 1) GitHub에 올리기
+```bash
+git init
+git add -A
+git commit -m "내 홈페이지"
+gh repo create 내저장소이름 --private --source=. --push
+```
+> `gh` 가 없으면 GitHub 웹에서 저장소를 만들고 주소를 연결해도 됩니다.
 
-1. 코드를 **GitHub에 올린다** (비공개 저장소도 가능)
-2. Netlify → **Add new site** → **Import an existing project** → GitHub 저장소 선택
-3. 빌드 설정은 `netlify.toml`이 자동 처리 (건드릴 것 없음)
-4. **Site configuration → Environment variables** 에 2개 추가
-   - `NOTION_TOKEN`
-   - `NOTION_DATABASE_ID`
-5. **Deploy**
+### 2) Vercel에 연결
+1. [vercel.com](https://vercel.com) → **Continue with GitHub** 로 가입/로그인
+   > 이메일 가입보다 GitHub 로그인이 안전합니다 (계정 정지 위험이 낮음)
+2. **Add New → Project** → 방금 만든 저장소 **Import**
+3. 설정은 **아무것도 건드리지 마세요.** Vercel이 Next.js를 자동 인식합니다
 
-### 노션 글을 즉시 반영하고 싶다면
-기본은 1시간마다 자동 갱신(ISR)입니다. 바로 반영하려면
-**Site configuration → Build & deploy → Build hooks** 에서 훅을 만들고,
-그 주소를 즐겨찾기 해두었다가 글 쓴 뒤 한 번 열면 즉시 재배포됩니다.
+### 3) 환경변수 2개 넣기
+Import 화면의 **Environment Variables** 에 추가합니다.
+
+| 이름 | 값 |
+|---|---|
+| `NOTION_TOKEN` | `ntn_...` |
+| `NOTION_DATABASE_ID` | 32자리 |
+
+> 빠뜨리면 글이 하나도 안 보입니다. 나중에 **Settings → Environment Variables** 에서 추가할 수도 있지만, 추가 후 **Redeploy** 해야 적용됩니다.
+
+### 4) **Deploy** 클릭
+1~2분 뒤 `내저장소이름.vercel.app` 으로 열립니다.
 
 ---
 
-### 배포 후 — 빌드 시간 아끼는 법
+### 노션에 새 글을 쓰면?
 
-| 상황 | 하지 말 것 | 대신 |
-|---|---|---|
-| 디자인 수정 | 고칠 때마다 push | **로컬에서 다 고치고** 모아서 한 번 push |
-| 오타 하나 | 바로 push | 다른 수정과 **묶어서** push |
-| 노션 글 추가 | 재배포 | **아무것도 안 해도 1시간 뒤 자동 반영** (ISR) |
-| 글을 지금 당장 반영 | 매번 재배포 | 급할 때만 Build hook 1회 |
+**아무것도 안 해도 1시간 안에 자동으로 올라갑니다.** (ISR)
 
-**노션 글은 재배포가 필요 없습니다.** 이 템플릿은 1시간마다 알아서 새 글을 가져옵니다.
-빌드가 필요한 건 **코드나 디자인을 바꿨을 때뿐**입니다.
+**바로 반영하고 싶을 때**는 Vercel에서 **Deploy Hook** 을 만들어 두세요.
+**Settings → Git → Deploy Hooks** → 이름 아무거나 + `main` → **Create Hook**
 
-무료 플랜은 월 300분입니다. 이 사이트 한 번 빌드에 1~2분이니
-**모아서 올리면 충분히 여유롭습니다.**
+생성된 주소를 **휴대폰 북마크**에 저장해두고, 글 쓴 뒤 한 번 열면 1~2분 안에 반영됩니다.
+
+### 빌드 아끼는 법
+
+| 상황 | 이렇게 |
+|---|---|
+| 디자인 수정 | 로컬에서 다 고치고 **모아서 한 번** push |
+| **노션 글 추가** | **아무것도 안 해도 됨** — 1시간 뒤 자동 반영 |
+| 지금 당장 반영 | Deploy Hook 한 번 |
+
+---
+
+### ⚠️ 무료 플랜 주의
+
+Vercel 무료(Hobby)는 **개인·비상업 용도**입니다.
+사업용으로 본격 운영하게 되면 **Pro(월 $20)** 로 올리거나
+**Cloudflare Pages**(무료·상업 사용 허용)로 옮기세요.
 
 ---
 
@@ -275,11 +298,11 @@ NOTION_DATABASE_ID=1a2b3c...
 
 **반드시 도메인을 먼저 연결한 뒤에 검색엔진에 등록하세요.**
 
-`xxx.netlify.app`으로 6개월 쌓아놓고 나중에 도메인을 사면,
+`xxx.vercel.app`으로 6개월 쌓아놓고 나중에 도메인을 사면,
 검색엔진 입장에선 **완전히 새 사이트**라 그동안 쌓은 게 리셋됩니다.
 
 1. 도메인 구매 (가비아·후이즈 등, `.com`/`.kr` 연 2만원 안팎)
-2. Netlify → **Domain management → Add a domain**
+2. Vercel → 프로젝트 → **Settings → Domains → Add**
 3. 안내대로 네임서버 또는 DNS 설정
 4. **⏳ 반영에 몇 시간~하루 걸립니다.** 안 된다고 계속 만지지 마세요
 5. 연결되면 `lib/site.js`의 `url`을 실제 주소로 바꾸고 재배포
